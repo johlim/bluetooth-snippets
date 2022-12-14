@@ -1,6 +1,6 @@
 LDLIBS := -lbluetooth
 
-all:rfcomm-server 
+all: rfcomm-server rfcomm-client sdpbrowse
 #rfcomm-client rfcomm-packet rfcomm-server sdpbrowse
 #	$(CC) hciscan.c -o hciscan
 #	$(CC) hcishow.c -o hciscan
@@ -9,16 +9,16 @@ all:rfcomm-server
 #	$(CC) obex-test.c -o $@
 
 rfcomm-client:
-	$(CC) rfcomm-client.c -o $@
+	$(CC) rfcomm-client.c -o $@ ${LDLIBS}
 
 rfcomm-packet:
-	$(CC) rfcomm-packet.c -o $@
+	$(CC) rfcomm-packet.c -o $@ ${LDLIBS}
 
 rfcomm-server:
 	$(CC) rfcomm-server.c -o $@ ${LDLIBS}
 
 sdpbrowse:
-	$(CC) sdpbrowse.c -o $@
+	$(CC) sdpbrowse.c -o $@ ${LDLIBS}
 
 clean:
 	rm -f *.o

@@ -38,7 +38,7 @@
 #define __addr(cr, dlci)       (((dlci & 0x3f) << 2) | (cr << 1) | 0x01)
 #define __ctrl(type, pf)       (((type & 0xef) | (pf << 4)))
 #define __len8(len)            (((len) << 1) | 1)
-
+#define u8 unsigned char
 
 /* ---- RFCOMM FCS computation ---- */
 
@@ -91,6 +91,11 @@ static unsigned char rfcomm_crc_table[256] = {
 void usage(void);
 //u8 __fcs2(u8 *data);
 //asm static inline u8 __fcs2(u8 *data);
+/* FCS on 3 bytes */
+static inline u8 __fcs2(u8 *data)
+{
+        return (0xff - rfcomm_crc_table[__crc(data) ^ data[2]]);
+}
 
 
 // MAIN PART
@@ -208,7 +213,7 @@ int main(int argc, char *argv[])
         /* Set RFCOMM header properties */
 	cmd = (struct rfcomm_cmd *) buf;
         cmd->addr = raddr.rc_bdaddr; //__addr(s->initiator, remote_address);
-	cmd->ctrl = __ctrl(rf_ctrl);
+	cmd->ctrl = __ctrl(rf_ctrl,0);
 	cmd->len = __len8(rf_len);
 	cmd->fcs = __fcs2(rf_fcs);
 
@@ -237,10 +242,5 @@ void usage(void)
         exit(EXIT_SUCCESS);
 }
 
-/* FCS on 3 bytes */
-static inline u8 __fcs2(u8 *data)
-{
-        return (0xff - rfcomm_crc_table[__crc(data) ^ data[2]]);
-}
 
 // EOF dude.

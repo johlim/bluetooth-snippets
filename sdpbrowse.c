@@ -10,6 +10,7 @@
 
 #include <bluetooth/sdp.h>
 #include <bluetooth/sdp_lib.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {

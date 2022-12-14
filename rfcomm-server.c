@@ -16,6 +16,7 @@
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
+#include <stdlib.h>
 
 #define CHANNEL 4
 #define QUEUE 10

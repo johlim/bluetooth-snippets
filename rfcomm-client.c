@@ -17,6 +17,7 @@
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
 #include <bluetooth/hci.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {
@@ -72,3 +73,4 @@ int main(int argc, char *argv[])
   return 0;
 }
 
+//./rfcomm-client A4:50:46:18:2C:C6 1 list 
